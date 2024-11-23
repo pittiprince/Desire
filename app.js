@@ -5,9 +5,11 @@
     const PORT = process.env.PORT
     const DB_URI = process.env.MongooseURL
     const userRoutes = require('./routes/user')
+    const productsRoutes = require('./routes/Products')
 
     app.use(express.json());
     app.use('/user',userRoutes)
+    app.use('/Products',productsRoutes)
 
     const establishServer = async() =>{
         try{
