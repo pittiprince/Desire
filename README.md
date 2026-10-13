@@ -20,6 +20,7 @@ npm test
 | `PORT` | no | Set by the host; default 3000 |
 | `smsApi` | no | Fast2SMS key (SMS OTP) |
 | `EMAIL`, `EMAIL_PASSWORD` | no | Gmail + app password (email OTP) |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | no | Email OTP through any SMTP provider (e.g. Brevo free plan); takes priority over Gmail |
 | `ADMIN_SIGNUP_SECRET` | no | Lets signup create an admin when `adminSecret` matches; empty disables admin signup |
 | `CORS_ORIGIN` | no | Comma-separated allowed origins |
 | `JWT_EXPIRES_IN` | no | Default `1d` |

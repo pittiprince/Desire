@@ -12,7 +12,7 @@ const escapeHtml = (text) => String(text)
 // still answered "OTP sent" even though nothing was delivered).
 const sendOTPEmail = async (email, name, otp) => {
     const mailOptions = {
-        from: `"Desire Ecommerce" <${process.env.EMAIL}>`,
+        from: `"Desire Ecommerce" <${process.env.MAIL_FROM || process.env.EMAIL}>`,
         to: email,
         subject: 'Your OTP Code',
         html: `

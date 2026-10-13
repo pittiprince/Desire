@@ -10,7 +10,7 @@ if (missing.length > 0) {
 }
 // optional features: warn instead of failing so the shop still runs without them
 if (!process.env.smsApi) console.warn('smsApi is not set: SMS OTP login will not work');
-if (!process.env.EMAIL || !process.env.EMAIL_PASSWORD) console.warn('EMAIL / EMAIL_PASSWORD are not set: email OTP login will not work');
+if (!process.env.SMTP_HOST && (!process.env.EMAIL || !process.env.EMAIL_PASSWORD)) console.warn('SMTP_HOST (or EMAIL / EMAIL_PASSWORD) is not set: email OTP login will not work');
 
 // Hosting platforms (Render, Railway, ...) tell the app which port to use through PORT
 const PORT = process.env.PORT || 3000;
