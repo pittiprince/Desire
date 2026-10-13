@@ -7,10 +7,12 @@
 <link rel="stylesheet" href="console.css">
 </head>
 <body>
-<header>
-  <h1>Desire <span>API demo console</span></h1>
-  <p>A real client for this e-commerce backend. Browse the live catalogue (search, category filter, pagination), sign in with JWT, and use the admin tools (role checked against the database). The log shows every raw request and response.</p>
-</header>
+<div class="topbar"><div class="brand"><span class="logo">D</span>Desire</div><span class="spacer"></span><span class="badge">API demo console</span></div>
+<section class="hero">
+  <span class="badge">Live demo data</span>
+  <h1>Furniture and lighting, straight from the API</h1>
+  <p>A real client for this e-commerce backend: search, filter, paginate, sign in with JWT and use the admin tools. The log at the bottom shows every raw request and response.</p>
+</section>
 <main>
   <section class="col">
     <div class="card">
@@ -47,9 +49,9 @@
       <div id="products" class="grid"></div>
       <div class="row pager"><button id="prev" class="ghost">Prev</button><span id="page"></span><button id="next" class="ghost">Next</button></div>
     </div>
-    <div class="card"><h2>Request / response log</h2><pre id="log">Waiting for the first request…</pre></div>
   </section>
 </main>
+<footer class="logbar"><h2>Request / response log <span class="badge">proof of work</span></h2><pre id="log">Waiting for the first request…</pre></footer>
 <script src="console.js"></script>
 </body>
 </html>

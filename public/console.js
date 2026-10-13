@@ -23,14 +23,14 @@
       var box = $('products'); box.textContent = '';
       list.forEach(function (p, i) {
         var d = document.createElement('div'); d.className = 'course';
-        var t = document.createElement('div'); t.className = 'thumb'; t.style.background = 'hsl(' + hues[i % hues.length] + ',45%,40%)'; t.textContent = p.category.toUpperCase();
+        var t = document.createElement('div'); t.className = 'thumb'; t.textContent = p.category.toUpperCase();
         var b = document.createElement('div'); b.className = 'b';
         var h = document.createElement('h3'); h.textContent = p.name;
-        var s = document.createElement('div'); s.className = 'stock'; s.textContent = p.brand + ' · ★ ' + p.rating + ' · ' + p.stock + ' in stock';
+        var cb = document.createElement('span'); cb.className = 'badge'; cb.textContent = p.category; var s = document.createElement('div'); s.className = 'stock'; s.textContent = p.brand + ' · ★ ' + p.rating + ' · ' + p.stock + ' in stock';
         var f = document.createElement('div'); f.className = 'f';
         var pr = document.createElement('span'); pr.className = 'price'; pr.textContent = '₹' + p.price; f.appendChild(pr);
-        if (isAdmin) { var del = document.createElement('button'); del.className = 'ghost'; del.textContent = 'Delete'; del.onclick = function () { api('DELETE', '/Products/admin/' + p._id).then(load); }; f.appendChild(del); }
-        b.appendChild(h); b.appendChild(s); b.appendChild(f); d.appendChild(t); d.appendChild(b); box.appendChild(d);
+        if (isAdmin) { var del = document.createElement('button'); del.className = 'danger'; del.textContent = 'Delete'; del.onclick = function () { api('DELETE', '/Products/admin/' + p._id).then(load); }; f.appendChild(del); }
+        b.appendChild(cb); b.appendChild(h); b.appendChild(s); b.appendChild(f); d.appendChild(t); d.appendChild(b); box.appendChild(d);
       });
       if (!$('cat').dataset.filled && list.length) { fillCats(); }
     });
