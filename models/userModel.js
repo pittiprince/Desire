@@ -13,12 +13,14 @@ const addressSchema = new Schema({
 }, { _id: false }); // _id: false disables creating an ID for the sub-document
 
 const userSchema = new Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true }, 
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true },
-    mobilNumber: { type: Number, required: true },
-    address: addressSchema, 
-    role: { type: String, required: true, enum: ['admin', 'user'] }, 
+    // kept under its original (misspelled) name so existing documents keep working;
+    // text instead of Number so leading zeros and a "+" country code survive
+    mobilNumber: { type: String, required: true },
+    address: addressSchema,
+    role: { type: String, enum: ['admin', 'user'], default: 'user' },
 }, { timestamps: true }); // Adds createdAt and updatedAt fields automatically
 
 // Create a Mongoose model

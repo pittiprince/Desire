@@ -1,25 +1,31 @@
-    const express = require('express')
-    require('dotenv').config();
-    const app = express()
-    const mongoose = require('mongoose')
-    const PORT = process.env.PORT
-    const DB_URI = process.env.MongooseURL
-    const userRoutes = require('./routes/user')
-    const productsRoutes = require('./routes/Products')
+require('dotenv').config();
+const mongoose = require('mongoose');
+const createApp = require('./createApp');
 
-    app.use(express.json());
-    app.use('/user',userRoutes)
-    app.use('/Products',productsRoutes)
+const REQUIRED_ENV = ['MongooseURL', 'JWT_SECRET_KEY'];
+const missing = REQUIRED_ENV.filter((name) => !process.env[name]);
+if (missing.length > 0) {
+    console.error(`Missing required environment variables: ${missing.join(', ')}`);
+    process.exit(1);
+}
+// optional features: warn instead of failing so the shop still runs without them
+if (!process.env.smsApi) console.warn('smsApi is not set: SMS OTP login will not work');
+if (!process.env.EMAIL || !process.env.EMAIL_PASSWORD) console.warn('EMAIL / EMAIL_PASSWORD are not set: email OTP login will not work');
 
-    const establishServer = async() =>{
-        try{
-        await mongoose.connect(DB_URI)
-            app.listen(PORT,()=>{
-                console.log(`The server has been started`)
-            })
-        }catch(err){
-            console.log(err)
-        }
+// Hosting platforms (Render, Railway, ...) tell the app which port to use through PORT
+const PORT = process.env.PORT || 3000;
+
+const establishServer = async () => {
+    try {
+        await mongoose.connect(process.env.MongooseURL);
+        console.log('Connected to MongoDB');
+        createApp().listen(PORT, '0.0.0.0', () => {
+            console.log(`The server has been started on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error('Could not start the server:', err.message);
+        process.exit(1);
     }
+};
 
-    establishServer()
+establishServer();

@@ -4,6 +4,7 @@ const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        trim: true,
         index: true // Add an index for faster search on product names
     },
     description: {
@@ -12,11 +13,13 @@ const ProductSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: true
+        required: true,
+        min: 0
     },
     stock: {
         type: Number,
-        required: true
+        required: true,
+        min: 0
     },
     category: {
         type: String,
@@ -38,16 +41,8 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         min: 0,
         max: 5
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now
     }
-});
+}, { timestamps: true }); // createdAt / updatedAt are maintained by Mongoose (updatedAt used to never change)
 
 // Create a text index for full-text search on multiple fields
 ProductSchema.index({
