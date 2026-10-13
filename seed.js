@@ -5,7 +5,7 @@ const Product = require('./models/productSchema');
 
 const DEMO_PASSWORD = 'Demo@12345';
 const address = { houseNumber: 12, streetNumber: 4, city: 'Udupi', zipcode: '576104', state: 'Karnataka', category: 'Home' };
-const P = (name, category, price, stock, brand, rating, description, tags) => ({ name, category, price, stock, brand, rating, description, tags, images: [] });
+const P = (name, category, price, stock, brand, rating, description, tags) => ({ name, category, price, stock, brand, rating, description, tags, images: [`https://picsum.photos/seed/desire-${encodeURIComponent(name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}/640/480`] });
 
 const PRODUCTS = [
     P('Nordic 3-Seater Sofa', 'living-room', 24999, 14, 'Fjord', 4.6, 'Linen-blend sofa with solid birch legs and removable covers.', ['sofa', 'seating', 'linen']),
@@ -32,6 +32,7 @@ async function seedDemoData() {
     }
     const before = await Product.countDocuments();
     if (before === 0) await Product.insertMany(PRODUCTS);
+    else for (const p of PRODUCTS) await Product.updateOne({ name: p.name, $or: [{ images: { $exists: false } }, { images: { $size: 0 } }] }, { $set: { images: p.images } });
     console.log(`Demo data ready (SEED_DEMO=true): products before=${before}, now=${await Product.countDocuments()}, db=${Product.db.name}, collection=${Product.collection.name}`);
 }
 

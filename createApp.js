@@ -13,7 +13,7 @@ function createApp() {
     // behind Render's proxy: needed so rate limiting sees the real client IP
     app.set('trust proxy', 1);
 
-    app.use(helmet());
+    app.use(helmet({ contentSecurityPolicy: { directives: { ...helmet.contentSecurityPolicy.getDefaultDirectives(), 'img-src': ["'self'", 'data:', 'https:'] } } }));
 
     // CORS_ORIGIN can be a comma separated list, e.g. https://my-shop.vercel.app
     // All origins are allowed when it is not set (fine for a demo API that uses bearer tokens).
