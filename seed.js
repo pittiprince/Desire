@@ -30,8 +30,9 @@ async function seedDemoData() {
     if (!(await User.findOne({ email: 'demo-user@desire.dev' }))) {
         await User.create({ name: 'Demo Shopper', email: 'demo-user@desire.dev', password: hash, mobilNumber: '9000000002', address, role: 'user' });
     }
-    if ((await Product.countDocuments()) === 0) await Product.insertMany(PRODUCTS);
-    console.log('Demo data ready (SEED_DEMO=true)');
+    const before = await Product.countDocuments();
+    if (before === 0) await Product.insertMany(PRODUCTS);
+    console.log(`Demo data ready (SEED_DEMO=true): products before=${before}, now=${await Product.countDocuments()}, db=${Product.db.name}, collection=${Product.collection.name}`);
 }
 
 module.exports = { seedDemoData };
