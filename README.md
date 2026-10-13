@@ -47,3 +47,6 @@ Responses are JSON.
 1. Create a free MongoDB Atlas M0 cluster, allow `0.0.0.0/0`, copy the URI.
 2. Render → New Web Service from this repo: build `npm install`, start `npm start`, health check `/health`.
 3. Add the env vars above. Free tier sleeps after 15 min idle, so the first request is slow.
+
+## Demo
+Set `SEED_DEMO=true` to load 12 products and demo accounts (demo-user@desire.dev, demo-admin@desire.dev, password Demo@12345). `/` serves a small live console that calls the API.

@@ -19,6 +19,7 @@ const establishServer = async () => {
     try {
         await mongoose.connect(process.env.MongooseURL);
         console.log('Connected to MongoDB');
+        if (process.env.SEED_DEMO === 'true') await require('./seed').seedDemoData();
         createApp().listen(PORT, '0.0.0.0', () => {
             console.log(`The server has been started on port ${PORT}`);
         });

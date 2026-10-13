@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desire API – live demo console</title>
+<link rel="stylesheet" href="console.css">
+</head>
+<body>
+<header>
+  <h1>Desire <span>API demo console</span></h1>
+  <p>A real client for this e-commerce backend. Browse the live catalogue (search, category filter, pagination), sign in with JWT, and use the admin tools (role checked against the database). The log shows every raw request and response.</p>
+</header>
+<main>
+  <section class="col">
+    <div class="card">
+      <h2>Account</h2>
+      <form id="auth">
+        <input name="email" type="email" placeholder="email" required>
+        <input name="password" type="password" placeholder="password (min 8)" required>
+        <input name="name" placeholder="name (signup only)">
+        <div class="row"><button type="submit" data-act="login">Sign in</button><button type="submit" data-act="signup" class="ghost">Sign up</button></div>
+      </form>
+      <p class="hint">Demo · shopper <code>demo-user@desire.dev</code> · admin <code>demo-admin@desire.dev</code> · password <code>Demo@12345</code>
+        <button id="fillU" class="link">shopper</button><button id="fillA" class="link">admin</button></p>
+      <p id="who" class="who">Not signed in</p>
+    </div>
+    <div class="card" id="adminCard" hidden>
+      <h2>Admin · add a product</h2>
+      <form id="add">
+        <input name="name" placeholder="name" required><input name="category" placeholder="category" required>
+        <div class="row"><input name="price" type="number" min="0" placeholder="price" required><input name="stock" type="number" min="0" placeholder="stock" required></div>
+        <input name="brand" placeholder="brand" required><input name="description" placeholder="description" required>
+        <button>Add product</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>OTP login</h2>
+      <p class="hint">Passwordless login by email or SMS is implemented (hashed one-time codes, 5-attempt limit, resend cooldown). It needs the mail/SMS provider credentials set on the server.</p>
+      <form id="otp"><input name="email" type="email" placeholder="email" required><button>Send OTP by email</button></form>
+    </div>
+  </section>
+  <section class="col wide">
+    <div class="card">
+      <h2>Catalogue <small id="count"></small></h2>
+      <div class="row filters"><input id="q" placeholder="search (e.g. lamp)"><select id="cat"><option value="">all categories</option></select></div>
+      <div id="products" class="grid"></div>
+      <div class="row pager"><button id="prev" class="ghost">Prev</button><span id="page"></span><button id="next" class="ghost">Next</button></div>
+    </div>
+    <div class="card"><h2>Request / response log</h2><pre id="log">Waiting for the first request…</pre></div>
+  </section>
+</main>
+<script src="console.js"></script>
+</body>
+</html>

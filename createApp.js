@@ -28,6 +28,9 @@ function createApp() {
     // used by the hosting platform's health check
     app.get('/health', (req, res) => res.status(200).json({ ok: true }));
 
+    // demo console (proof of work UI) served at /
+    app.use(express.static(require('path').join(__dirname, 'public')));
+
     app.use('/user', userRoutes);
     app.use('/Products', productsRoutes);
 
