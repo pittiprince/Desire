@@ -23,7 +23,7 @@
       var box = $('products'); box.textContent = '';
       list.forEach(function (p, i) {
         var d = document.createElement('div'); d.className = 'course';
-        var t = document.createElement('div'); t.className = 'thumb'; if (p.images && p.images[0]) { var im = document.createElement('img'); im.src = p.images[0]; im.alt = p.name; im.loading = 'lazy'; t.appendChild(im); } else { t.textContent = p.category.toUpperCase(); }
+        var t = document.createElement('div'); t.className = 'thumb'; if (p.images && p.images[0]) { var im = document.createElement('img'); im.src = p.images[0]; im.alt = p.name; im.loading = 'lazy'; im.onerror = function () { im.remove(); t.textContent = p.category.toUpperCase(); }; t.appendChild(im); } else { t.textContent = p.category.toUpperCase(); }
         var b = document.createElement('div'); b.className = 'b';
         var h = document.createElement('h3'); h.textContent = p.name;
         var cb = document.createElement('span'); cb.className = 'badge'; cb.textContent = p.category; var s = document.createElement('div'); s.className = 'stock'; s.textContent = p.brand + ' · ★ ' + p.rating + ' · ' + p.stock + ' in stock';
